@@ -9,14 +9,22 @@ import connectDB from "./Db/index.js";
 
 const server = express();
 const PORT = process.env.PORT || 8000;
-server.use(
-  cors({
-    origin: process.env.CORS_ORIGIN || "http://localhost:5173", // Specify frontend URL
-    credentials: true, // Allow cookies to be sent
-    allowedHeaders: ["Content-Type", "Authorization"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  })
-);
+// server.use(
+//   cors({
+//     origin: process.env.CORS_ORIGIN || "http://localhost:5173", // Specify frontend URL
+//     credentials: true, // Allow cookies to be sent
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//   })
+// );
+const corsOptions = {
+  origin: 'http://localhost:5173',
+  methods: 'GET,POST,PUT,DELETE',
+  allowedHeaders: 'Content-Type,Authorization',
+  credentials: true,
+};
+
+server.use(cors(corsOptions));
 
 server.use(cookieParser());
 server.use(express.json({ limit: "16kb" }));

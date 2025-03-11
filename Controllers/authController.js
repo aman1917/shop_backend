@@ -60,15 +60,10 @@ export const loginController = async (req, res) => {
       maxAge: 1000 * 60 * 60, // 1 hour
       httpOnly: true,
       secure: false, // 🔴 Change to `true` in production (HTTPS required)
-      sameSite: "None", // ✅ Needed for cross-origin cookies
+      sameSite: 'None', // ✅ Needed for cross-origin cookies
     });
-    res.header("Access-Control-Allow-Credentials", true);
-    // res.header("Access-Control-Allow-Origin", "*");
-
-    // console.log("✅ Set-Cookie Header:", res.getHeaders()["set-cookie"]); // 🔥 Debugging
-    // res.status(200).json({ status: true, message: "Login successful" });
-    res.status(200).cookie("token", token);
-    res.status(200).json({ status: true, message: "Login successful" });
+    // res.status(200).cookie("token", token);
+    res.status(200).json({ status: true, token, message: "Login successful" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ status: false, message: "Server error" });
